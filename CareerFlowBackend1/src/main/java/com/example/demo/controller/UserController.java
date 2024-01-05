@@ -26,18 +26,18 @@ public class UserController {
 	private UserService userService;
 	@Autowired
 	private UserAuthenticationProvider userAuthenticationProvider;
-	
-	
+
+
 	@PostMapping("/register")
 	public ResponseEntity<User> registerUser(@RequestBody User user){
-		
+
 		User user1=userService.addUser(user);
 		//give him a  jwt token
 		user1.setToken(userAuthenticationProvider.createToken(user1.getEmail()));
 		System.out.println(" jwt token whlie register "+user1.getToken());
 		return ResponseEntity.ok(user1);
 	}
-	
+
 	@PostMapping("/login")
 	public ResponseEntity<User> login(@RequestBody User user){
 		System.out.println(" This method was hit ");
@@ -47,7 +47,7 @@ public class UserController {
 		System.out.println(" jwt token whlie login "+user1.getToken());
 		return ResponseEntity.ok(user1);
 	}
-	
+
 	@PostMapping("/updateUser")
     public ResponseEntity<User> updateUser( @RequestBody User updatedUser) {
         User updatedUserData = userService.updateUser(updatedUser);
@@ -64,13 +64,20 @@ public class UserController {
         String result=userService.deleteUser(email);
         return ResponseEntity.ok(result);
     }
-    
-    
+
+
     @GetMapping("/getAllUsers")
     public ResponseEntity<List<User>> getAllUsers(){
     	List<User> users=userService.getAllUser();
     	return ResponseEntity.ok(users);
-    	
+
     }
-	
+	@GetMapping("/exportAllUsersToExcel")
+	public ResponseEntity<String> exportAllUsersToExcel() {
+		userService.exportAllUsersToExcel();
+		return ResponseEntity.ok("Export initiated. Check the specified folder for the Excel file.");
+	}
+
+
+
 }
