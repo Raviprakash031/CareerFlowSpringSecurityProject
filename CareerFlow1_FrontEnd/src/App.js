@@ -22,7 +22,7 @@ function App() {
 
   const handleLogout = () => {
     // Implement your logout logic here
-    
+    localStorage.removeItem('jwtToken');
     setIsLoggedIn(false);
     window.location.href = '/';
   };

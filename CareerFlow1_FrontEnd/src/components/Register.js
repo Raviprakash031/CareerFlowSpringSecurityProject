@@ -78,7 +78,7 @@ const Register = () => {
 
     try {
       // Add your backend API endpoint
-      const apiUrl = 'http://localhost:8080/register';
+      const apiUrl = 'https://carrerflowdockerapp.onrender.com/register';
 
       // Make a POST request to the backend API
       const response = await axios.post(apiUrl, formData);

@@ -78,7 +78,7 @@ const UpdateUser = () => {
 
   try {
     // Add your backend API endpoint
-    const apiUrl = 'http://localhost:8080/updateUser';
+    const apiUrl = 'https://carrerflowdockerapp.onrender.com/updateUser';
 
     // Retrieve the JWT token from local storage
     const token = localStorage.getItem('jwtToken');

@@ -17,6 +17,8 @@ public class UserService extends ExcelService {
 	private UserRepository userRepo;
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	@Autowired
+	private ExcelUpdateService excelUpdateService;
 
 	public User addUser(User user) {
 
@@ -26,16 +28,21 @@ public class UserService extends ExcelService {
 
 	public User loginUser(User user) {
 		System.out.println(user.getPassword());
-	User user1 =userRepo.findByEmail(user.getEmail());
-	System.out.println(user1.getPassword());
+		User user1 = userRepo.findByEmail(user.getEmail());
 
-	if(passwordEncoder.matches(user.getPassword(), user1.getPassword())) {
-		System.out.println("checking");
-		return user1;
-	}
+		if (user1 != null) { // Add a null check here
+			System.out.println(user1.getPassword());
+
+			if (passwordEncoder.matches(user.getPassword(), user1.getPassword())) {
+				System.out.println("checking");
+				return user1;
+			}
+		}
+
 		return null;
 	}
-   public User findByEmail(String email) {
+
+	public User findByEmail(String email) {
 	   return userRepo.findByEmail(email);
    }
    public User updateUser(User updatedUser) {
@@ -94,11 +101,22 @@ public class UserService extends ExcelService {
 		}
 	}
 
+	public void updateUsersInExcel(List<User> usersToUpdate, String filePath) {
+		try {
+			ExcelUpdateService.updateUsersInExcel(usersToUpdate, filePath);
+		} catch (IOException e) {
+			e.printStackTrace();
+			// Handle the exception as needed
+		}
+	}
+
 	private List<User> getAllUsers() {
 		List<User> users;
         users = userRepo.findAll();
         return users;
 	}
+
+
 
 
 }

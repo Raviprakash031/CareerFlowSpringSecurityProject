@@ -28,6 +28,8 @@ public class UserController {
 	private UserAuthenticationProvider userAuthenticationProvider;
 
 
+
+
 	@PostMapping("/register")
 	public ResponseEntity<User> registerUser(@RequestBody User user){
 
@@ -76,6 +78,12 @@ public class UserController {
 	public ResponseEntity<String> exportAllUsersToExcel() {
 		userService.exportAllUsersToExcel();
 		return ResponseEntity.ok("Export initiated. Check the specified folder for the Excel file.");
+	}
+	@PostMapping("/updateUsersInExcel")
+	public ResponseEntity<String> updateUsersInExcel(@RequestBody List<User> usersToUpdate) {
+		String filePath = "path/to/your/existing/excel/file.xlsx"; // Specify the correct file path
+		userService.updateUsersInExcel(usersToUpdate, filePath);
+		return ResponseEntity.ok("Excel file updated successfully.");
 	}
 
 

@@ -8,7 +8,7 @@ const GetAllUsers = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const apiUrl = 'http://localhost:8080/getAllUsers';
+        const apiUrl = 'https://carrerflowdockerapp.onrender.com/getAllUsers';
 
         // Get the JWT token from localStorage
         const token = localStorage.getItem('jwtToken');

@@ -32,7 +32,11 @@ public class User {
 		this.password = password;
 		this.token = token;
 	}
-	public String getToken() {
+
+    public User(String userEmail, String userPassword) {
+    }
+
+    public String getToken() {
 		return token;
 	}
 	public void setToken(String token) {
